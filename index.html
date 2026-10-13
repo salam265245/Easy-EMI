@@ -7,7 +7,7 @@
 <style>
 :root{--bg:#fff;--ink:#16232f;--ink-soft:#5b6b78;--line:#dfe4e8;--line-strong:#b9c2c9;--navy:#0b3d63;--navy-deep:#082c47;--principal:#1f7a5c;--interest:#a3402a;--panel:#f7f9fa;--focus:#0b3d63;}
 *{box-sizing:border-box;} html{height:100%;}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hind Siliguri",Arial,sans-serif;-webkit-font-smoothing:antialiased;min-height:100%;padding-bottom:52px;overflow:hidden;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hind Siliguri",Arial,sans-serif;-webkit-font-smoothing:antialiased;min-height:100%;padding-bottom:70px;}
 .num{font-variant-numeric:tabular-nums;}
 header.app-head{display:flex;align-items:baseline;gap:8px;padding:14px 16px 12px;border-bottom:2px solid var(--navy);padding-top:calc(14px + env(safe-area-inset-top,0px));}
 .brand-mark{width:32px;height:32px;border-radius:8px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;flex:none;}
@@ -20,8 +20,8 @@ header.app-head p::before{content:"·";margin:0 6px 0 2px;}
 .track{display:flex;width:200%;transition:transform .3s ease;height:100%;align-items:stretch;}
 .track.show-page2{transform:translateX(-50%);}
 .page{width:50%;flex:none;height:100%;overflow:hidden;display:flex;flex-direction:column;min-height:0;}
-#page1{padding:10px 12px 14px;max-width:760px;margin:0 auto;display:flex;flex-direction:column;min-height:100dvh;}
-#page1 > header.app-head{padding-left:12px;padding-right:12px;margin:-10px -12px 10px;}
+#page1{padding:10px 12px 14px;max-width:760px;margin:0 auto;display:flex;flex-direction:column;min-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+#page1 > header.app-head{padding-left:12px;padding-right:12px;margin:-10px -12px 10px;position:sticky;top:0;z-index:20;background:#fff;}
 h2{font-size:16px;color:var(--navy-deep);margin:0 0 12px;font-weight:700;border-bottom:1px solid var(--line);padding-bottom:8px;}
 .form-row{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 11px;}
 .fields-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:9px;}
@@ -34,13 +34,10 @@ h2{font-size:16px;color:var(--navy-deep);margin:0 0 12px;font-weight:700;border-
 .stat .label{font-size:11.5px;color:var(--ink-soft);font-weight:600;flex:none;}
 .stat .mid{flex:1;text-align:center;font-weight:700;color:var(--navy);font-size:13px;}
 .stat .value{font-size:17.5px;font-weight:800;color:var(--navy-deep);text-align:right;}
-#page2{display:grid;grid-template-rows:auto 1fr;height:calc(100vh - 52px);height:calc(100dvh - 52px);overflow:hidden;padding-bottom:0;position:relative;align-content:start;}
-.table-wrap{grid-row:2;min-height:0;border-top:1px solid var(--line);overflow:auto;-webkit-overflow-scrolling:touch;padding-bottom:0;}
-#tableHolder{grid-row:2;overflow:auto;-webkit-overflow-scrolling:touch;min-height:0;height:100%;display:flex;flex-direction:column;}
-#tableHolder .table-wrap{flex:1;height:100%;}
-#page2 .paid-calc-bar{grid-row:1;}
+#page2{display:flex;flex-direction:column;height:100%;overflow:hidden;padding-bottom:0;position:relative;}
+.table-wrap{min-height:min-content;border-top:1px solid var(--line);overflow:visible;padding-bottom:20px;}
 table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:360px;}
-thead th{position:sticky;top:0;background:var(--navy);z-index:10;color:#fff;text-align:right;padding:9px 10px;font-size:11px;font-weight:700;border-right:1px solid rgba(255,255,255,.15);}
+thead th{position:sticky;top:0;background:var(--navy);color:#fff;text-align:right;padding:9px 10px;font-size:11px;font-weight:700;border-right:1px solid rgba(255,255,255,.15);}
 thead th:first-child{text-align:left;}
 tbody td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;color:var(--ink);}
 tbody td:first-child{text-align:left;}
@@ -55,7 +52,7 @@ td.sl-col{cursor:pointer; user-select:none;}
 td.sl-col:hover{background:#e8f5e9;}
 td.principal-col{color:var(--principal);}
 td.outstanding-col{color:var(--ink-soft);}
-.paid-calc-bar{position:relative;flex:none;z-index:50;display:flex;gap:8px;align-items:flex-end;padding:10px 12px;background:#fff;border-bottom:2.5px solid var(--navy);flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,0.12);grid-row:1;}
+.paid-calc-bar{flex:none;position:sticky;top:0;z-index:50;display:flex;gap:8px;align-items:flex-end;padding:10px 12px;background:#fff;border-bottom:2.5px solid var(--navy);flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
 .paid-calc-bar .pc-field{display:flex;flex-direction:column;gap:4px;min-width:72px;}
 .paid-calc-bar .pc-field label{font-size:11px;color:var(--ink-soft);font-weight:700;}
 .paid-calc-bar .pc-field input{border:1px solid var(--line-strong);border-radius:6px;padding:7px 9px;font-size:14px;font-weight:700;width:92px;}
@@ -85,9 +82,9 @@ td.outstanding-col{color:var(--ink-soft);}
 <div id="formError"></div>
 <div class="form-row">
 <div class="fields-col">
-<div class="field"><label>Loan Amount (Lac)</label><input id="principal" type="number" inputmode="decimal" placeholder="e.g. 10 (10 Lac = 10,00,000 Tk)"></div>
-<div class="field"><label>Interest Rate (% per year)</label><input id="rate" type="number" inputmode="decimal" placeholder="e.g. 9.5"></div>
-<div class="field"><label>Tenure (Months)</label><input id="tenure" type="number" inputmode="numeric" placeholder="e.g. 24"></div>
+<div class="field"><label>Loan Amount (Lac)</label><input id="principal" type="number" inputmode="decimal" enterkeyhint="next" placeholder="e.g. 10 (10 Lac = 10,00,000 Tk)"></div>
+<div class="field"><label>Interest Rate (% per year)</label><input id="rate" type="number" inputmode="decimal" enterkeyhint="next" placeholder="e.g. 9.5"></div>
+<div class="field"><label>Tenure (Months)</label><input id="tenure" type="number" inputmode="numeric" enterkeyhint="done" placeholder="e.g. 24"></div>
 </div>
 </div>
 <div id="summarySection" style="display:none;">
@@ -105,7 +102,7 @@ td.outstanding-col{color:var(--ink-soft);}
 <div class="pc-field"><label>From (auto)</label><input type="number" id="fromEmiInput" readonly placeholder="4"></div>
 <div class="pc-field pc-result"><span class="k">Last 12 Months Interest Paid</span><div class="vbox num" id="last12InterestResult">-</div></div>
 </div>
-<div id="tableHolder" style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:auto;"><div class="empty-note">Loan Amount, Rate, Tenure লিখলে Auto Amortization তৈরি হবে</div></div>
+<div id="tableHolder" style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:80px;"><div class="empty-note">Loan Amount, Rate, Tenure লিখলে Auto Amortization তৈরি হবে</div></div>
 </div>
 </div>
 </div>
@@ -145,7 +142,7 @@ function readInputsValid(){
  if(!(annualRate>=0)) return null;
  if(!(n>0)) return null;
  showError("");
- var P=lac*100000; // 1 Lac = 100,000 Tk
+ var P=lac*100000;
  return {P:P, lac:lac, annualRate:annualRate, n:n};
 }
 function computeEmi(P, annualRate, n){
@@ -203,7 +200,6 @@ function renderTable(){
 }
 window._customSelected = window._customSelected || new Set();
 function updateLast12InterestCalc(){
- // If custom selection active, don't override with auto calc unless input changed manually
  var pi=document.getElementById("paidEmiInput");
  var fi=document.getElementById("fromEmiInput");
  var rb=document.getElementById("last12InterestResult");
@@ -222,7 +218,6 @@ function updateLast12InterestCalc(){
  var sum=0; for(var i=from-1;i<paid;i++){ if(schedule[i]) sum+=schedule[i].interest; }
  rb.textContent="Tk "+fmtTk(sum)+"  ("+from+" to "+paid+") - Interest Only";
  window._lastSelectedFrom=from; window._lastSelectedTo=paid;
- // clear custom selection when using auto input
  if(document.activeElement===pi || pi.dataset.manual==="1"){
    window._customSelected.clear();
  }
@@ -249,7 +244,6 @@ function highlightRange(to){
  var from=Math.max(1,to-11);
  var tbody=document.getElementById("scheduleBody");
  if(!tbody) return;
- // If custom selection active, don't do auto highlight
  if(window._customSelected && window._customSelected.size>0) return;
  var rows=tbody.querySelectorAll("tr");
  rows.forEach(function(tr){
@@ -266,14 +260,12 @@ function highlightRange(to){
 function attachInterestClickHandlers(){
  var tbody=document.getElementById("scheduleBody");
  if(!tbody) return;
- // Prevent multiple listeners
  if(tbody.dataset.bound==="1") return;
  tbody.dataset.bound="1";
  tbody.addEventListener("click", function(e){
   var slTd=e.target.closest("td.sl-col");
   var intTd=e.target.closest("td.interest-col");
   if(slTd){
-    // Toggle bold - custom multi select
     var idx=parseInt(slTd.getAttribute("data-row"),10);
     if(isNaN(idx)) return;
     if(window._customSelected.has(idx)){
@@ -281,10 +273,8 @@ function attachInterestClickHandlers(){
     } else {
       window._customSelected.add(idx);
     }
-    // Clear auto highlight
     var rows=tbody.querySelectorAll("tr");
     rows.forEach(function(r){ r.classList.remove("highlight-row"); });
-    // Re-render to show custom-selected class
     var currentScroll = document.getElementById("tableHolder").scrollTop;
     renderTablePreserveScroll(currentScroll);
     updateCustomTotal();
@@ -307,7 +297,6 @@ function renderTablePreserveScroll(scrollTop){
  var holder=document.getElementById("tableHolder");
  var tbody=document.getElementById("scheduleBody");
  if(!tbody) { renderTable(); return; }
- // Update classes without full re-render for performance
  var rows=tbody.querySelectorAll("tr");
  rows.forEach(function(tr){
   var idx=parseInt(tr.getAttribute("data-row"),10);
@@ -343,9 +332,55 @@ document.addEventListener("DOMContentLoaded", function(){
  try{ if(!history.state) history.replaceState({page:1}, "", location.pathname+location.search);}catch(e){}
  var pe=document.getElementById("paidEmiInput");
  if(pe){ pe.addEventListener("input", updateLast12InterestCalc); pe.addEventListener("change", updateLast12InterestCalc); }
+ function handleEnter(e){
+  if(e.key==="Enter"){
+   e.preventDefault();
+   e.stopPropagation();
+   e.stopImmediatePropagation();
+   // সব ঘরে arrow চাপলে কিবোর্ড বন্ধ, হিসাব ফাইনাল
+   e.target.blur();
+   setTimeout(function(){ autoCalculate(); if(window.scrollTo) window.scrollTo(0,0); }, 0);
+   return false;
+  }
+ }
  ["principal","rate","tenure"].forEach(function(id){
   var el=document.getElementById(id);
-  if(el){ el.addEventListener("input", autoCalculate); el.addEventListener("change", autoCalculate); }
+  if(el){ 
+   el.addEventListener("input", autoCalculate); 
+   el.addEventListener("change", autoCalculate);
+   el.addEventListener("keydown", handleEnter);
+   // number spinner arrow ও keyboard up/down যেন value না বদলায়
+   el.addEventListener("keydown", function(ev){
+     if(ev.key==="ArrowUp" || ev.key==="ArrowDown"){
+       ev.preventDefault();
+     }
+   });
+   // Android Next/Done action কে blur এ কনভার্ট
+   el.addEventListener("keyup", function(ev){
+     if(ev.keyCode===13 || ev.key==="Enter"){
+       ev.target.blur();
+     }
+   });
+  }
+ });
+ // Amortization এর input যেন কিবোর্ড Next দিয়ে focus না পায়
+ var pe=document.getElementById("paidEmiInput");
+ if(pe){ pe.setAttribute("tabindex","-1"); pe.setAttribute("enterkeyhint","done"); }
+ // Tenure থেকে blur হলেও যেন paid input এ না যায়
+ var allIds=["principal","rate","tenure"];
+ document.addEventListener("focusin", function(ev){
+   if(ev.target && ev.target.id==="paidEmiInput"){
+     var tenureEl=document.getElementById("tenure");
+     var rateEl=document.getElementById("rate");
+     var princEl=document.getElementById("principal");
+     // যদি Loan Details incomplete থাকে, Home এর বাইরে focus যেতে দেব না
+     var p=princEl && princEl.value;
+     var r=rateEl && rateEl.value;
+     var t=tenureEl && tenureEl.value;
+     if(!(p && r && t)){
+       ev.target.blur();
+     }
+   }
  });
  document.getElementById("navHome").addEventListener("click", goToPage1);
  document.getElementById("navAmor").addEventListener("click", function(){ if(schedule.length===0) autoCalculate(); goToPage2(); });
