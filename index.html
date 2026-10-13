@@ -27,7 +27,7 @@ header.app-head .sub{font-size:13px;color:var(--ink-soft)}
 .track{display:flex;width:200%;transition:transform .3s ease}
 .track.show-page2{transform:translateX(-50%)}
 .page{width:50%;flex:none}
-#page1{padding:10px 12px;max-width:760px;margin:0 auto;display:flex;flex-direction:column;min-height:100dvh}
+#page1{padding:10px 12px 20px;max-width:760px;margin:0 auto;display:flex;flex-direction:column;min-height:calc(100vh - 60px)}
 h2{font-size:16px;color:var(--navy-deep);margin:0 0 12px;font-weight:700;border-bottom:1px solid var(--line);padding-bottom:8px}
 .form-row{display:flex;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 11px}
 .fields-col{flex:1;display:flex;flex-direction:column;gap:9px}
@@ -40,7 +40,7 @@ h2{font-size:16px;color:var(--navy-deep);margin:0 0 12px;font-weight:700;border-
 .stat .mid{font-size:12.5px;font-weight:800;color:#000;margin-left:6px}
 .stat .value{font-size:17.5px;font-weight:800;color:var(--navy-deep)}
 .stat .left{display:flex;align-items:center;gap:0}
-#page2{display:flex;flex-direction:column;height:100vh;padding-bottom:70px}
+#page2{display:flex;flex-direction:column;min-height:calc(100vh - 60px);height:auto;padding-bottom:70px}
 .table-wrap{flex:1;overflow:auto;border-top:1px solid var(--line)}
 table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:360px}
 thead th{position:sticky;top:0;background:var(--navy);color:#fff;text-align:right;padding:9px 10px;font-size:11px}
@@ -59,9 +59,11 @@ tr.highlight-row{background:#fff3cd !important;font-weight:800}
 .pc-field input{border:1px solid var(--line-strong);border-radius:6px;padding:7px 9px;font-size:14px;font-weight:700;width:92px}
 .pc-result{min-width:160px;flex:1}
 .vbox{border:1px dashed var(--line-strong);border-radius:6px;padding:7px 10px;background:var(--panel);font-size:13px;font-weight:800;color:var(--interest)}
-.bottom-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#fff;border-top:1px solid var(--line)}
-.bottom-nav button{flex:1;border:none;background:#fff;padding:14px 6px;font-weight:700;cursor:pointer}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#fff;border-top:2px solid var(--navy);z-index:99999;height:56px;transform:translateZ(0);-webkit-transform:translateZ(0)}
+.bottom-nav button{flex:1;border:none;background:#fff;padding:12px 6px 14px;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
 .bottom-nav button.active{background:var(--navy);color:#fff}
+body{padding-bottom:62px}
+html{height:100%}
 @media(min-width:900px){
 #page1{max-width:1200px;width:100%;margin:0 auto;padding:20px 40px;min-height:auto}
 #page1 > header.app-head{margin:-20px -40px 20px;padding:18px 40px;width:auto}
@@ -125,6 +127,18 @@ header.app-head{padding:18px 40px}
  var blob=new Blob([JSON.stringify(manifest)],{type:"application/json"});
  document.getElementById("manifest-link").href=URL.createObjectURL(blob);
 })();
+
+// AppsGeyser APK fix - force bottom nav above system nav
+(function(){
+  var isApk = /AppsGeyser|Android.*wv/i.test(navigator.userAgent) || window.location.protocol==='file:';
+  if(isApk){
+    document.documentElement.style.height='100%';
+    document.body.style.paddingBottom='62px';
+    var nav=document.querySelector('.bottom-nav');
+    if(nav){ nav.style.position='fixed'; nav.style.bottom='0'; nav.style.zIndex='99999'; }
+  }
+})();
+
 // Live Time Date Day - black bold
 function updateLive(){ var n=new Date(); document.getElementById('liveTime').textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}); document.getElementById('liveDate').textContent=n.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'}); document.getElementById('liveDay').textContent=n.toLocaleDateString('en-US',{weekday:'long'}); }
 setInterval(updateLive,1000); updateLive();
