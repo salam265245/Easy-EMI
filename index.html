@@ -20,9 +20,9 @@ header.app-head{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;b
 .header-title-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 header.app-head h1{margin:0;font-size:22px;color:var(--navy-deep);font-weight:800}
 header.app-head .sub{font-size:13px;color:var(--ink-soft)}
-.live-datetime{margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;display:inline-block}
+.live-datetime{margin-top:0;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;display:inline-block;flex:0 0 auto;min-width:145px}
 .live-datetime div{font-size:14px;font-weight:800;color:#000;line-height:1.5}
-.dev-inline{flex:none;width:148px;border-left:1px solid var(--line);padding-left:10px;font-size:11px;color:#97a3ad;line-height:1.7}
+.dev-inline{flex:1 1 auto;min-width:130px;border-left:1px solid var(--line);padding-left:10px;font-size:11px;color:#97a3ad;line-height:1.7;max-width:160px}
 .viewport{overflow:hidden;position:relative}
 .track{display:flex;width:200%;transition:transform .3s ease}
 .track.show-page2{transform:translateX(-50%)}
@@ -84,7 +84,7 @@ header.app-head{padding:18px 40px}
 <header class="app-head">
 <div class="header-main">
 <div class="header-title-row"><h1>Easy EMI</h1><span class="sub">Reducing Balance Method</span></div>
-<div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-top:10px">
+<div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:nowrap;margin-top:10px;justify-content:space-between">
 <div class="live-datetime" id="liveDateTime">
 <div>Time: <span id="liveTime">--:--:--</span></div>
 <div>Date: <span id="liveDate">--</span></div>
@@ -129,7 +129,7 @@ header.app-head{padding:18px 40px}
 function updateLive(){ var n=new Date(); document.getElementById('liveTime').textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}); document.getElementById('liveDate').textContent=n.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'}); document.getElementById('liveDay').textContent=n.toLocaleDateString('en-US',{weekday:'long'}); }
 setInterval(updateLive,1000); updateLive();
 // Offline support
-if('serviceWorker' in navigator){ var code=`const C='emi-v2';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['./'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`; var b=new Blob([code],{type:'text/javascript'}); navigator.serviceWorker.register(URL.createObjectURL(b)).catch(()=>{}); }
+if('serviceWorker' in navigator){ var code=`const C='emi-v4-logo-fix';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['./'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`; var b=new Blob([code],{type:'text/javascript'}); navigator.serviceWorker.register(URL.createObjectURL(b)).catch(()=>{}); }
 // Core logic - FIXED CALCULATION
 (function(){
 var schedule=[]; window._customSelected=new Set();
