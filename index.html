@@ -62,7 +62,20 @@ tr.highlight-row{background:#fff3cd !important;font-weight:800}
 .bottom-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:#fff;border-top:1px solid var(--line)}
 .bottom-nav button{flex:1;border:none;background:#fff;padding:14px 6px;font-weight:700;cursor:pointer}
 .bottom-nav button.active{background:var(--navy);color:#fff}
-@media(min-width:900px){#page1{max-width:none;width:100%;padding:20px 40px} .summary-grid{grid-template-columns:repeat(3,1fr);max-width:1000px} header.app-head{padding:18px 40px}}
+@media(min-width:900px){
+#page1{max-width:1200px;width:100%;margin:0 auto;padding:20px 40px;min-height:auto}
+#page1 > header.app-head{margin:-20px -40px 20px;padding:18px 40px;width:auto}
+.summary-grid{grid-template-columns:repeat(3,1fr);max-width:1000px}
+header.app-head{padding:18px 40px}
+#page2{height:auto;min-height:100vh;padding-bottom:80px}
+.table-wrap{max-width:1200px;margin:0 auto;width:100%}
+.paid-calc-bar{max-width:1200px;margin:0 auto;width:100%}
+.viewport{overflow:auto}
+}
+@media(min-width:900px) and (max-width:1200px){
+#page1{padding:16px 24px}
+#page1 > header.app-head{margin:-16px -24px 16px}
+}
 </style>
 </head>
 <body>
